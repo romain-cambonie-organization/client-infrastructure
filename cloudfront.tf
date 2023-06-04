@@ -83,7 +83,7 @@ resource "aws_cloudfront_distribution" "distribution" {
       viewer_protocol_policy     = "redirect-to-https"
       cache_policy_id            = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
       origin_request_policy_id   = "b689b0a8-53d0-40ab-baf2-68738e2966ac"
-      response_headers_policy_id = aws_cloudfront_response_headers_policy.response_headers_policy_api.id
+      response_headers_policy_id = aws_cloudfront_response_headers_policy.response_headers_policy_api[0].id
 
       function_association {
         event_type   = "viewer-request"
@@ -177,6 +177,8 @@ resource "aws_cloudfront_response_headers_policy" "response_headers_policy_clien
 }
 
 resource "aws_cloudfront_response_headers_policy" "response_headers_policy_api" {
+  count = var.api_endpoint != "" ? 1 : 0
+
   name = "policy-api"
 
   custom_headers_config {

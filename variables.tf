@@ -46,8 +46,9 @@ variable "hosting_zone_id" {
 
 variable "api_endpoint" {
   type        = string
-  nullable    = false
+  nullable    = true
   description = "The project api endpoint origin that get forwarded to an api gateway, for now only one endpoint is supported"
+  default     = ""
 }
 
 variable "acm_certificate_arn" {
